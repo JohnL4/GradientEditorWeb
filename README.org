@@ -1,0 +1,23 @@
+* GradientEditorWeb
+
+  Gradient editor using web technologies
+
+* Table Hijinks
+
+  We want something like this:
+
+  #+BEGIN_EXAMPLE
+
+  +-----+------+-------+-----+
+  | Add | Posn | Color | Del |
+  +-----+------+-------+-----+
+  |     |  xx  |   xx  | Del |
+  +-----+      |       |     |
+  | Add +------+-------+-----|
+  +-----+  yy  |  yy   | Del |
+  | Add +------+-------+-----|
+  +-----+  zz  |  zz   | Del |
+  | Add +------+-------+-----|
+  +-----+                    |
+
+  #+END_EXAMPLE
