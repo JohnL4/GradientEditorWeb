@@ -1,6 +1,17 @@
 * GradientEditorWeb
 
-  Gradient editor using web technologies
+  Gradient editor using web technologies.
+
+  Originally intended to be useful with this planet-making software:
+  http://www.diku.dk/~torbenm/Planet/, but the software as written doesn't normalize high altitudes
+  (in the case when you set initial values to be elevated so that the planet will be a desert
+  planet), it just clips them at max. value, with the result that you get large areas colored with
+  one color, no matter gradient you supply.
+
+  Oh, well, still, looks like a good algorithm, so maybe I can re-implement and then use this
+  gradient editor.
+
+  Still a worthy exercise in itself.
 
 * Table Hijinks
 
@@ -21,3 +32,5 @@
   +-----+                    |
 
   #+END_EXAMPLE
+
+  This ain't gonna work, btw.  Well, maybe it could, but I'm getting lost in the rowspans.
