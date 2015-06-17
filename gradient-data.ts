@@ -130,11 +130,15 @@ function rowButtonClicked( anEvent: Event)
   var btn: HTMLButtonElement = <HTMLButtonElement> anEvent.currentTarget;
   var row: HTMLTableRowElement = <HTMLTableRowElement> walkUpToNodeType( btn, "TR");
   var tbody: HTMLTableSectionElement = <HTMLTableSectionElement> walkUpToNodeType( row, "TBODY");
+  var i = row.rowIndex - 1;
   if (btn.textContent == "-")
+  {
     tbody.deleteRow( row.rowIndex);
+    // Yes, this is how you delete an array entry in Javascript.
+    gradientPoints.splice( i, 1);
+  }
   else
   {
-    var i = row.rowIndex - 1;
     var newPosn: number;
     if (i == 0)
       newPosn = 0;
@@ -144,6 +148,7 @@ function rowButtonClicked( anEvent: Event)
       newPosn = (gradientPoints[i-1].position + gradientPoints[i].position)/2;
     var gp: GradientPoint = new GradientPoint( newPosn, "#999999");
     insertNewRow( tbody, gp, row.rowIndex );
+    gradientPoints.splice( i, 0, gp);
   }
 }
 

@@ -83,10 +83,12 @@ function rowButtonClicked(anEvent) {
     var btn = anEvent.currentTarget;
     var row = walkUpToNodeType(btn, "TR");
     var tbody = walkUpToNodeType(row, "TBODY");
-    if (btn.textContent == "-")
+    var i = row.rowIndex - 1;
+    if (btn.textContent == "-") {
         tbody.deleteRow(row.rowIndex);
+        gradientPoints.splice(i, 1);
+    }
     else {
-        var i = row.rowIndex - 1;
         var newPosn;
         if (i == 0)
             newPosn = 0;
@@ -96,6 +98,7 @@ function rowButtonClicked(anEvent) {
             newPosn = (gradientPoints[i - 1].position + gradientPoints[i].position) / 2;
         var gp = new GradientPoint(newPosn, "#999999");
         insertNewRow(tbody, gp, row.rowIndex);
+        gradientPoints.splice(i, 0, gp);
     }
 }
 function walkUpToNodeType(aNode, aNodeName) {
