@@ -51,16 +51,19 @@ function addTableRows(aTableId, aGradientPoints) {
         }
     }
 }
-function insertNewRow(aTBody, aGradientPoint) {
-    var tr = aTBody.insertRow();
+function insertNewRow(aTBody, aGradientPoint, anIndex) {
+    if (anIndex === void 0) { anIndex = -1; }
+    var tr = aTBody.insertRow(anIndex);
     var td;
     td = tr.insertCell();
     var button = document.createElement("BUTTON");
     button.textContent = "+";
+    button.onclick = rowButtonClicked;
     td.appendChild(button);
     td = tr.insertCell();
     button = document.createElement("BUTTON");
     button.textContent = "-";
+    button.onclick = rowButtonClicked;
     td.appendChild(button);
     td = tr.insertCell();
     td.textContent = aGradientPoint.position.toString();
@@ -73,5 +76,32 @@ function insertLastEmptyRow(aTBody) {
     td = tr.insertCell();
     var button = document.createElement("BUTTON");
     button.textContent = "+";
+    button.onclick = rowButtonClicked;
     td.appendChild(button);
+}
+function rowButtonClicked(anEvent) {
+    var btn = anEvent.currentTarget;
+    var row = walkUpToNodeType(btn, "TR");
+    var tbody = walkUpToNodeType(row, "TBODY");
+    if (btn.textContent == "-")
+        tbody.deleteRow(row.rowIndex);
+    else {
+        var i = row.rowIndex - 1;
+        var newPosn;
+        if (i == 0)
+            newPosn = 0;
+        else if (i == gradientPoints.length)
+            newPosn = 1;
+        else
+            newPosn = (gradientPoints[i - 1].position + gradientPoints[i].position) / 2;
+        var gp = new GradientPoint(newPosn, "#999999");
+        insertNewRow(tbody, gp, row.rowIndex);
+    }
+}
+function walkUpToNodeType(aNode, aNodeName) {
+    var walker = aNode;
+    while (walker != null && walker.nodeName != aNodeName) {
+        walker = walker.parentNode;
+    }
+    return walker;
 }
