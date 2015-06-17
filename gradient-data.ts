@@ -30,6 +30,12 @@ function loaded()
   addTableRows( "gradientPointsTable", gradientPoints);
 }
 
+/**
+ * Delete all but the first row (which is assumed to be a header row) from the
+ * given table.
+ * @param  {string} aTableId [description]
+ * @return {[type]}          [description]
+ */
 function clearTableRows( aTableId: string)
 {
   var tbl : HTMLTableElement;
@@ -51,6 +57,12 @@ function clearTableRows( aTableId: string)
   }
 }
 
+/**
+ * Add one row for each GradientPoint to the table identified by the given id.
+ * @param  {string}          aTableId        [description]
+ * @param  {GradientPoint[]} aGradientPoints [description]
+ * @return {[type]}                          [description]
+ */
 function addTableRows( aTableId: string, aGradientPoints: GradientPoint[])
 {
   var tbl : HTMLTableElement;
@@ -125,6 +137,11 @@ function insertLastEmptyRow( aTBody: HTMLTableSectionElement)
   td.appendChild( button);
 }
 
+/**
+ * A button in the gradient points table was clicked.
+ * @param  {Event}  anEvent [description]
+ * @return {[type]}         [description]
+ */
 function rowButtonClicked( anEvent: Event)
 {
   var btn: HTMLButtonElement = <HTMLButtonElement> anEvent.currentTarget;
@@ -152,6 +169,13 @@ function rowButtonClicked( anEvent: Event)
   }
 }
 
+/**
+ * Walk up the DOM tree STARTING WITH the given node, finding the first node that is of
+ * the given type (aNodeName).  May return null.
+ * @param  {Node}   aNode     [description]
+ * @param  {string} aNodeName [description]
+ * @return {Node}             [description]
+ */
 function walkUpToNodeType( aNode: Node, aNodeName: string): Node
 {
   var walker: Node = aNode;
