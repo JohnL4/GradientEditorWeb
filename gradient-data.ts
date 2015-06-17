@@ -99,16 +99,9 @@ function insertNewRow( aTBody: HTMLTableSectionElement, aGradientPoint: Gradient
   var td : HTMLTableDataCellElement; // = <HTMLTableDataCellElement> tr.insertCell();
 
   // Buttons
-  td = <HTMLTableDataCellElement> tr.insertCell( );
-  var button : HTMLButtonElement = <HTMLButtonElement> document.createElement( "BUTTON");
-  button.textContent = "+";
-  button.onclick = rowButtonClicked;
-  td.appendChild( button);
-  td = <HTMLTableDataCellElement> tr.insertCell( );
-  button = <HTMLButtonElement> document.createElement( "BUTTON");
-  button.textContent = "-";
-  button.onclick = rowButtonClicked;
-  td.appendChild( button);
+  addButton( tr, "+");
+  addButton( tr, "-");
+  addButton( tr, "Edit");
 
   // Position
   td = <HTMLTableDataCellElement> tr.insertCell();
@@ -129,10 +122,20 @@ function insertLastEmptyRow( aTBody: HTMLTableSectionElement)
   var tr : HTMLTableRowElement = <HTMLTableRowElement> aTBody.insertRow();
   var td : HTMLTableDataCellElement; // = <HTMLTableDataCellElement> tr.insertCell();
 
-  // Buttons
-  td = <HTMLTableDataCellElement> tr.insertCell( );
+  addButton( tr, "+");
+}
+
+/**
+ * Append a button having the given content to the given row.
+ * @param  {HTMLTableRowElement} aTR         [description]
+ * @param  {string}              aButtonText [description]
+ * @return {[type]}                          [description]
+ */
+function addButton( aTR: HTMLTableRowElement, aButtonText: string)
+{
+  var td = <HTMLTableDataCellElement> aTR.insertCell( );
   var button : HTMLButtonElement = <HTMLButtonElement> document.createElement( "BUTTON");
-  button.textContent = "+";
+  button.textContent = aButtonText;
   button.onclick = rowButtonClicked;
   td.appendChild( button);
 }
@@ -154,7 +157,7 @@ function rowButtonClicked( anEvent: Event)
     // Yes, this is how you delete an array entry in Javascript.
     gradientPoints.splice( i, 1);
   }
-  else
+  else if (btn.textContent == "+")
   {
     var newPosn: number;
     if (i == 0)

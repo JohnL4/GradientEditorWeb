@@ -55,16 +55,9 @@ function insertNewRow(aTBody, aGradientPoint, anIndex) {
     if (anIndex === void 0) { anIndex = -1; }
     var tr = aTBody.insertRow(anIndex);
     var td;
-    td = tr.insertCell();
-    var button = document.createElement("BUTTON");
-    button.textContent = "+";
-    button.onclick = rowButtonClicked;
-    td.appendChild(button);
-    td = tr.insertCell();
-    button = document.createElement("BUTTON");
-    button.textContent = "-";
-    button.onclick = rowButtonClicked;
-    td.appendChild(button);
+    addButton(tr, "+");
+    addButton(tr, "-");
+    addButton(tr, "Edit");
     td = tr.insertCell();
     td.textContent = aGradientPoint.position.toString();
     td = tr.insertCell();
@@ -73,9 +66,12 @@ function insertNewRow(aTBody, aGradientPoint, anIndex) {
 function insertLastEmptyRow(aTBody) {
     var tr = aTBody.insertRow();
     var td;
-    td = tr.insertCell();
+    addButton(tr, "+");
+}
+function addButton(aTR, aButtonText) {
+    var td = aTR.insertCell();
     var button = document.createElement("BUTTON");
-    button.textContent = "+";
+    button.textContent = aButtonText;
     button.onclick = rowButtonClicked;
     td.appendChild(button);
 }
@@ -88,7 +84,7 @@ function rowButtonClicked(anEvent) {
         tbody.deleteRow(row.rowIndex);
         gradientPoints.splice(i, 1);
     }
-    else {
+    else if (btn.textContent == "+") {
         var newPosn;
         if (i == 0)
             newPosn = 0;
